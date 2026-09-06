@@ -2,6 +2,9 @@ package random
 
 // ID creates a random ID of requested length
 func ID(length int) string {
+	rMu.Lock()
+	defer rMu.Unlock()
+
 	b := make([]byte, length)
 	for i := 0; i < length; i++ {
 		b[i] = chars[r.Int63()%int64(len(chars))]
@@ -11,6 +14,9 @@ func ID(length int) string {
 
 // Digits creates a string of random digits
 func Digits(length int) string {
+	rMu.Lock()
+	defer rMu.Unlock()
+
 	b := make([]byte, length)
 	for i := 0; i < length; i++ {
 		b[i] = digits[r.Int63()%int64(len(digits))]
